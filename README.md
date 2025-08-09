@@ -21,7 +21,7 @@ NoteManager to przykładowa aplikacja webowa napisana w PHP z wykorzystaniem OOP
 
 1. **Sklonuj repozytorium:**
    ```bash
-   git clone https://github.com/TWOJA_NAZWA_UZYTKOWNIKA/NoteManager.git
+   git clone https://github.com/pmilewski91/NoteManager.git
    cd NoteManager
    ```
 
@@ -40,7 +40,7 @@ NoteManager to przykładowa aplikacja webowa napisana w PHP z wykorzystaniem OOP
    composer install
    ```
 
-4. **Utwórz bazę danych i tabele:**
+4. **Baza danych i tabele:**
    Po uruchomieniu kontenerów baza powinna być dostępna. Nie musisz ręcznie tworzyć tabel – aplikacja automatycznie utworzy wymagane tabele oraz przykładowego użytkownika przy pierwszym uruchomieniu, dzięki mechanizmowi w pliku `Database.php`.
 
 5. **Otwórz aplikację w przeglądarce:**
