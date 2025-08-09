@@ -33,7 +33,7 @@ NoteManager to przykładowa aplikacja webowa napisana w PHP z wykorzystaniem OOP
 3. **Zainstaluj zależności PHP (Composer):**
    Jeśli korzystasz z Dockera, możesz wykonać:
    ```bash
-   docker-compose exec app composer install
+   docker-compose exec web composer install
    ```
    Lub lokalnie:
    ```bash
