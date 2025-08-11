@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use App\Service\ValidationService;
+
 class User
 {
     private ?int $id = null;
@@ -18,62 +20,109 @@ class User
         $this->email = $email;
     }
     // Getters
+    /**
+     * [Returns the ID of the user.]
+     *
+     * @return int|null
+     * 
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
+    /**
+     * [Returns the password of the user.]
+     *
+     * @return string
+     * 
+     */
     public function getPassword(): string
     {
         return $this->password;
     }
+    /**
+     * [Returns the email of the user.]
+     *
+     * @return string
+     * 
+     */
     public function getEmail(): string
     {
         return $this->email;   
     }
+    /**
+     * [Returns the creation date of the user.]
+     *
+     * @return string|null
+     * 
+     */
     public function getCreatedAt(): ?string {
         return $this->createdAt;
     }
+    /**
+     * [Returns the last updated date of the user.]
+     *
+     * @return string|null
+     * 
+     */
     public function getUpdatedAt(): ?string {
         return $this->updatedAt;
     }
-
-    // Validations
-    public function validateEmail(): bool
-    {
-        if (empty($this->email)) {
-            throw new \InvalidArgumentException('Email cannot be empty.');
-        }
-        if (filter_var($this->email, FILTER_VALIDATE_EMAIL) === false) {
-            throw new \InvalidArgumentException('Invalid email format.');
-        }
-        return true;
-    }
-    public function validatePassword(): bool
-    {
-        if (empty($this->password)) {
-            throw new \InvalidArgumentException('Password cannot be empty.');
-        }
-        if (strlen($this->password) < 4) {
-            throw new \InvalidArgumentException('Password must be at least 4 characters long.');
-        }
-        return true;
-    }
-
-
+    
     // Setters
+    /**
+     * [Sets the email of the user after validation.]
+     *
+     * @param string $email
+     * 
+     * @return void
+     * 
+     */
     public function setEmail(string $email): void
     {
-        $this->validateEmail();
+        ValidationService::validateEmail($email);
         $this->email = $email;
     }
+    /**
+     * [Sets the password of the user after validation and hashes it.]
+     *
+     * @param string $password
+     * 
+     * @return void
+     * 
+     */
     public function setPassword(string $password): void
     {
-        $this->validatePassword();
+        ValidationService::validatePassword($password);
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
+    /**
+     * [Sets the creation date of the user.]
+     *
+     * @param string $createdAt
+     * 
+     * @return void
+     * 
+     */
     public function setCreatedAt(string $createdAt): void {
         $this->createdAt = $createdAt;
     }
+    /**
+     * [Sets the last updated date of the user.]
+     *
+     * @param string $updatedAt
+     * 
+     * @return void
+     * 
+     */
+    /**
+     * [Sets the last updated date of the user.]
+     *
+     * @param string $updatedAt
+     * 
+     * @return void
+     * 
+     */
     public function setUpdatedAt(string $updatedAt): void {
         $this->updatedAt = $updatedAt;
     }

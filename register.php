@@ -6,6 +6,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 use App\Database;
 use App\Service\AuthService;
 use App\Model\User;
+use App\Service\ValidationService;
 
 $message = '';
 
@@ -17,11 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = new User($password, $email);
 
     if ($email && $password && $confirm) {
-        if (!$user->validateEmail()) {
+        if (!ValidationService::validateEmail($email)) {
             $message = 'Podaj poprawny adres e-mail.';
         } elseif ($password !== $confirm) {
             $message = 'Hasła się nie zgadzają.';
-        } elseif (!$user->validatePassword()) {
+        } elseif (!ValidationService::validatePassword($password)) {
             $message = 'Hasło musi mieć co najmniej 4 znaki.';
         
         } else {

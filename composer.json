@@ -11,5 +11,7 @@
             "name": "pmilewski"
         }
     ],
-    "require": {}
+    "require": {
+        "php": ">=8.1"
+    }
 }
