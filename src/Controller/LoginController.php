@@ -26,28 +26,26 @@ class LoginController
     {
         header('Content-Type: application/json');
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = $_POST['email'] ?? null;
-            $password = $_POST['password'] ?? null;
-
-            if ($email && $password) {
-
-                $user = $this->authService->login($email, $password);
-
-                if ($user) {
-                    echo json_encode(['success' => true]);
-                    exit;
-                } else {
-                    echo json_encode(['success' => false, 'error' => 'Nieprawidłowy adres e-mail lub hasło.']);
-                    exit;
-                }
-            } else {
-                echo json_encode(['success' => false, 'error' => 'Brak danych logowania.']);
-                exit;
+        try {
+            $input = $this->validateAndSanitizeInput();
+            
+            if (!$input) {
+                $this->jsonResponse(false, 'Nieprawidłowe dane logowania.');
+                return;
             }
-        }
 
-        echo json_encode(['success' => false, 'error' => 'Nieprawidłowe żądanie.']);
+            $user = $this->authService->login($input['email'], $input['password']);
+            
+            if (!$user) {
+                $this->jsonResponse(false, 'Nieprawidłowy adres e-mail lub hasło.');
+                return;
+            }
+
+            $this->jsonResponse(true);
+
+        } catch (\Exception $e) {
+            $this->jsonResponse(false, 'Wystąpił błąd podczas logowania.');
+        }
     }
 
     /**
@@ -59,5 +57,47 @@ class LoginController
     public function logout(): void
     {
         AuthService::logout();
+    }
+
+    /**
+     * [Validates and sanitizes the input data.]
+     *
+     * @return array|null
+     * 
+     */
+    private function validateAndSanitizeInput(): ?array 
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            return null;
+        }
+
+        $email = filter_var(
+            trim($_POST['email'] ?? ''), 
+            FILTER_SANITIZE_EMAIL
+        );
+        $password = $_POST['password'] ?? '';
+
+        if (!$email || !$password) {
+            return null;
+        }
+
+        return ['email' => $email, 'password' => $password];
+    }
+
+    /**
+     * [Sends a JSON response.]
+     *
+     * @param bool $success
+     * @param string|null $error
+     * @return void
+     * 
+     */
+    private function jsonResponse(bool $success, ?string $error = null): void
+    {
+        echo json_encode([
+            'success' => $success,
+            'error' => $error
+        ]);
+        exit;
     }
 }
