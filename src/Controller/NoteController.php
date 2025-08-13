@@ -6,6 +6,7 @@ use App\Database;
 use App\Model\Note;
 use App\Repository\NoteRepository;
 use App\Service\AuthService;
+use App\Service\LayoutService;
 
 class NoteController
 {
@@ -114,7 +115,7 @@ class NoteController
 
         $message = $this->message;
         $content = __DIR__ . '/../Resources/views/create_note.php';
-        require_once __DIR__ . '/../Resources/layouts/default.php';
+        require_once LayoutService::renderLayout();
     }
 
     /**

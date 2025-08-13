@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Database;
 use App\Service\AuthService;
 use App\Service\ValidationService;
+use App\Service\LayoutService;
 
 class RegisterController
 {
@@ -116,6 +117,6 @@ class RegisterController
 
         $message = $this->message;
         $content = __DIR__ . '/../Resources/views/register.php';
-        require_once __DIR__ . '/../Resources/layouts/default.php';
+        require_once LayoutService::renderLayout();
     }
 }

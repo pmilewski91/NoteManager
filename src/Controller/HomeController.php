@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Database;
 use App\Repository\NoteRepository;
 use App\Service\AuthService;
+use App\Service\LayoutService;
 
 class HomeController
 {
@@ -31,6 +32,6 @@ class HomeController
         }
 
         $content = __DIR__ . '/../Resources/views/home.php';
-        require_once __DIR__ . '/../Resources/layouts/default.php';
+        require_once LayoutService::renderLayout();
     }
 }
