@@ -22,11 +22,25 @@ class RegisterController
         $this->authService = new AuthService($db);
     }
 
+    /**
+     * [Sets a message to be displayed to the user.]
+     *
+     * @param string $message
+     * 
+     * @return void
+     * 
+     */
     private function setMessage(string $message): void
     {
         $this->message = $message;
     }
 
+    /**
+     * [Checks if the form data is valid and sets the form data.]
+     *
+     * @return bool
+     * 
+     */
     private function checkDataForm(): bool
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -59,6 +73,16 @@ class RegisterController
         }
     }
 
+    /**
+     * [Sets the form data for registration.]
+     *
+     * @param string $email
+     * @param string $password
+     * @param string $confirm
+     * 
+     * @return void
+     * 
+     */
     private function setFormData(string $email, string $password, string $confirm): void
     {
         $this->formData['email'] = htmlspecialchars(strip_tags(trim($email)), ENT_QUOTES, 'UTF-8');
@@ -66,6 +90,12 @@ class RegisterController
         $this->formData['confirm'] = $confirm;
     }
 
+    /**
+     * [Registers a new user in the database.]
+     *
+     * @return void
+     * 
+     */
     public function register(): void
     {
         if ($this->checkDataForm()) {

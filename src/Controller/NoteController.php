@@ -23,11 +23,25 @@ class NoteController
         $this->noteRepository = new NoteRepository($db);
     }
 
+    /**
+     * [Sets a message to be displayed to the user.]
+     *
+     * @param string $message
+     * 
+     * @return void
+     * 
+     */
     private function setMessage(string $message): void
     {
         $this->message = $message;
     }
 
+    /**
+     *  [Checks if the form data is valid and sets the form data.]
+     *
+     * @return bool
+     * 
+     */
     private function checkDataForm(): bool
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -52,6 +66,16 @@ class NoteController
         }
     }
 
+    /**
+     * [Sets the form data for creating a note.]
+     *
+     * @param string $title
+     * @param string $description
+     * @param string $color
+     * 
+     * @return void
+     * 
+     */
     private function setFormData(string $title, string $description, string $color): void
     {
         $this->formData['title'] = htmlspecialchars($title);
@@ -59,6 +83,12 @@ class NoteController
         $this->formData['color'] = $color;
     }
 
+    /**
+     * [Creates a new note and saves it to the database.]
+     *
+     * @return void
+     * 
+     */
     public function create(): void
     {
         if (!AuthService::checkIfLogging()) {
@@ -87,6 +117,12 @@ class NoteController
         require_once __DIR__ . '/../Resources/layouts/default.php';
     }
 
+    /**
+     * [Deletes a note by its ID if the user is logged in and has permission.]
+     *
+     * @return void
+     * 
+     */
     public function delete(): void
     {
         if (!AuthService::checkIfLogging()) {

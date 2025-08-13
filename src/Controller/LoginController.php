@@ -7,14 +7,21 @@ use App\Service\AuthService;
 
 class LoginController
 {
-    private $db;
-    private $authService;
+
+    private AuthService $authService;
 
     public function __construct()
     {
-        $this->db = new Database();
-        $this->authService = new AuthService($this->db);
+        $db = new Database();
+        $this->authService = new AuthService($db);
     }
+
+    /**
+     * [Renders the login page and handles login requests.]
+     *
+     * @return void
+     * 
+     */
     public function login(): void
     {
         header('Content-Type: application/json');
@@ -43,6 +50,12 @@ class LoginController
         echo json_encode(['success' => false, 'error' => 'Nieprawidłowe żądanie.']);
     }
 
+    /**
+     * [Logs out the user by clearing the session.]
+     *
+     * @return void
+     * 
+     */
     public function logout(): void
     {
         AuthService::logout();

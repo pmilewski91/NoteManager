@@ -16,6 +16,12 @@ class HomeController
         $this->noteRepository = new NoteRepository($db);
     }
 
+    /**
+     * [Renders the home page with notes if the user is logged in.]
+     *
+     * @return void
+     * 
+     */
     public function index(): void
     {
         $notes = [];
