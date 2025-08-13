@@ -10,9 +10,9 @@ class LayoutService
      * @param string $content
      * @return void
      */
-    public static function renderLayout(?string $content = "default"): string
+    public static function renderLayout(?string $layoutName = "default"): string
     {
-        $layoutFile = __DIR__.'/../Resources/layouts/'.$content.'.php';
+        $layoutFile = __DIR__.'/../Resources/layouts/'.$layoutName.'.php';
         
         if (!file_exists($layoutFile)) {
             throw new \RuntimeException("Layout file not found: $layoutFile");
