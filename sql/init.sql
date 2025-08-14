@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS notes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL, 
+    title VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    color VARCHAR(50) NOT NULL DEFAULT 'white',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+
+INSERT INTO users (email, password) 
+SELECT 'demo@demo.pl', '$2y$10$F/ux12i1papgTLBO4dNCye925l4lTND0OA45DnYfW5VH.MaF41MKe'
+WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = 'demo@demo.pl');

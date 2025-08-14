@@ -1,16 +1,6 @@
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql:8.0
-    environment:
-      - MYSQL_ROOT_PASSWORD=rootroot
-      - MYSQL_DATABASE=myapp
-    volumes:
-      - ./docker/mysql:/etc/mysql/conf.d
-      - mysql_data:/var/lib/mysql
-    ports:
-      - "3307:3306"
 
   web:
     build: .
@@ -25,6 +15,16 @@ services:
       - DB_PASS=rootroot
     depends_on:
       - mysql
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootroot
+      - MYSQL_DATABASE=myapp
+    volumes:
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin

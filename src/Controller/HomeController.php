@@ -9,7 +9,7 @@ use App\Service\LayoutService;
 
 class HomeController
 {
-    private $noteRepository;
+    private NoteRepository $noteRepository;
 
     public function __construct()
     {

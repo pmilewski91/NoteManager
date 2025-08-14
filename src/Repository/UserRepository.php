@@ -10,10 +10,10 @@ use App\Service\ValidationService;
 
 class UserRepository
 {
-    private $db;
-    private $userPassword;
-    private $userEmail;
-    private $userId;
+    private object $db;
+    private string $userPassword;
+    private string $userEmail;
+    private int $userId;
 
     public function __construct(Database $db)
     {

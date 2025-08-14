@@ -11,11 +11,11 @@ use App\Service\ValidationService;
 
 class NoteRepository
 {
-    private $db;
-    private $noteTitle;
-    private $noteDescription;
-    private $noteColor;
-    private $noteUserId;
+    private object $db;
+    private string $noteTitle;
+    private string $noteDescription;
+    private string $noteColor;
+    private int $noteUserId;
 
     public function __construct(Database $db)
     {
